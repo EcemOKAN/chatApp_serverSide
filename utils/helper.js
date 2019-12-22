@@ -27,7 +27,7 @@ class Helper{
 
 	async loginUser(params){
 		try {
-			return await this.db.query(`SELECT id FROM user WHERE LOWER(username) = ? AND password = ?`, [params.username,params.password]);
+			return await this.db.query(`SELECT * FROM user WHERE username = ? AND password = ?`, [params.username,params.password]);
 		} catch (error) {
 			return null;
 		}

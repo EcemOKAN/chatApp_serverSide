@@ -67,31 +67,32 @@ class Routes{
 	        }
 		});
 
-		this.app.post('/login',async (request,response) =>{
+		this.app.post('/login/',async (request,response) =>{
 			const loginResponse = {}
 			const data = {
-				username : (request.body.username).toLowerCase(),
+				username : request.body.username,
 				password : request.body.password
 			};
-			if(data.username === '' || data.username === null) {
+			if(data.username == '' || data.username == null) {
 	            loginResponse.error = true;
 	            loginResponse.message = `username cant be empty.`;
 	            response.status(412).json(loginResponse);
-	        }else if(data.password === '' || data.password === null){				            
+	        }else if(data.password == '' || data.password == null){				            
 	            loginResponse.error = true;
 	            loginResponse.message = `password cant be empty.`;
 	            response.status(412).json(loginResponse);
 	        }else{
 				const result = await helper.loginUser(data);
-				if (result === null || result.length === 0) {
+				if (result && result.length ) {
+					loginResponse.error = false;
+					loginResponse.userId = result[0].id;
+					loginResponse.user= result[0];
+					loginResponse.message = `User logged in.`;
+					response.status(200).json(loginResponse);
+				} else {
 					loginResponse.error = true;
 					loginResponse.message = `Invalid username and password combination.`;
 					response.status(401).json(loginResponse);
-				} else {
-					loginResponse.error = false;
-					loginResponse.userId = result[0].id;
-					loginResponse.message = `User logged in.`;
-					response.status(200).json(loginResponse);
 				}
 	        }
 		});
