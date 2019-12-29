@@ -50,7 +50,7 @@ app.controller('authController', function ($scope, $location, $timeout, appServi
 
     $scope.registerUser = () => {
         appService.httpCall({
-            url: '/registerUser',
+            url: '/registerUser/',
             params: {
                 'username': $scope.data.regUsername,
                 'password': $scope.data.regPassword
@@ -67,7 +67,7 @@ app.controller('authController', function ($scope, $location, $timeout, appServi
 
     $scope.loginUser = () => {
         appService.httpCall({
-            url: '/login',
+            url: '/login/',
             params: {
                 'username': $scope.data.loginUsername,
                 'password': $scope.data.loginPassword

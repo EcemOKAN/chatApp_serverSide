@@ -29,6 +29,7 @@ class Helper{
 		try {
 			return await this.db.query(`SELECT * FROM user WHERE username = ? AND password = ?`, [params.username,params.password]);
 		} catch (error) {
+			console.error(error);
 			return null;
 		}
 	}

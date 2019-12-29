@@ -38,10 +38,10 @@ class Routes{
 			}
 		});		
 
-		this.app.post('/registerUser', async (request,response) => {
+		this.app.post('/registerUser/', async (request,response) => {
 			const registrationResponse = {}
 			const data = {
-				username : (request.body.username).toLowerCase(),
+				username : request.body.username,
 				password : request.body.password
 			};			
 			if(data.username === '') {
@@ -75,7 +75,8 @@ class Routes{
 			};
 			if(data.username == '' || data.username == null) {
 	            loginResponse.error = true;
-	            loginResponse.message = `username cant be empty.`;
+				loginResponse.message = `username cant be empty.`;
+				console.log(json.parse(data));
 	            response.status(412).json(loginResponse);
 	        }else if(data.password == '' || data.password == null){				            
 	            loginResponse.error = true;
