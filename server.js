@@ -8,7 +8,7 @@ const express = require("express");
 const http = require('http');
 const socketio = require('socket.io');
 const bodyParser = require('body-parser');
- 
+
 const socketEvents = require('./utils/socket'); 
 const routes = require('./utils/routes'); 
 const config = require('./utils/config'); 
@@ -28,7 +28,10 @@ class Server{
     appConfig(){        
         this.app.use(
             bodyParser.json()
+            //cors()
         );
+        this.app.use(bodyParser.urlencoded({extended:true}));
+        //this.app.options('*', cors());
         new config(this.app);
     }
  

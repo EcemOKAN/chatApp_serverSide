@@ -13,6 +13,7 @@ class Config{
 		//app.use(express('/login/'),express.Router());
 		app.use(require('express').static(require('path').join('client')));
 		//app.use(require('express').static(require('path').join('routes')))
+		
 	}
 }
 module.exports = Config;

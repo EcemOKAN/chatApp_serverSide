@@ -7,10 +7,11 @@
 
 const helper = require('./helper');
 const path = require('path');
+const cors=require('cors');
+ 
 class Routes{
 
 	constructor(app){
-
 		this.app = app;
 	}
 	
@@ -68,6 +69,7 @@ class Routes{
 		});
 
 		this.app.post('/login/',async (request,response) =>{
+			try{
 			const loginResponse = {}
 			const data = {
 				username : request.body.username,
@@ -76,7 +78,7 @@ class Routes{
 			if(data.username == '' || data.username == null) {
 	            loginResponse.error = true;
 				loginResponse.message = `username cant be empty.`;
-				console.log(json.parse(data));
+				console.log(JSON.stringify(data));
 	            response.status(412).json(loginResponse);
 	        }else if(data.password == '' || data.password == null){				            
 	            loginResponse.error = true;
@@ -95,7 +97,11 @@ class Routes{
 					loginResponse.message = `Invalid username and password combination.`;
 					response.status(401).json(loginResponse);
 				}
-	        }
+			}
+		}
+		catch(e){
+			console.log(e);
+		}
 		});
 		
 		this.app.post('/userSessionCheck', async (request,response) =>{
